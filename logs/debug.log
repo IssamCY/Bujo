@@ -1,0 +1,11 @@
+2026-11-03 11:26:07,972 | INFO     | bujo.journal | Entrée ajoutée : id=1, type=Task, nom=Faire les courses
+2026-11-03 11:26:07,972 | INFO     | bujo.journal | Entrée ajoutée : id=2, type=Task, nom=Rendre le rapport
+2026-11-03 11:26:07,972 | INFO     | bujo.journal | Entrée ajoutée : id=3, type=Task, nom=Rénover la cuisine
+2026-11-03 11:26:07,972 | INFO     | bujo.journal | Entrée ajoutée : id=4, type=Note, nom=Idée
+2026-11-03 11:26:07,972 | INFO     | bujo.journal | Entrée ajoutée : id=5, type=Event, nom=Partiel
+2026-11-03 11:26:07,972 | INFO     | bujo.models | Tâche 1 : a_faire -> terminee
+2026-11-03 11:26:07,972 | INFO     | bujo.models | Tâche 3 : a_faire -> abandonnee
+2026-11-03 11:26:07,972 | DEBUG    | bujo.journal | 1 tâche(s) à faire
+2026-11-03 11:26:07,972 | ERROR    | bujo.models | Transition interdite pour la tâche 1 : terminee -> terminee
+2026-11-03 11:26:07,972 | ERROR    | bujo.journal | Entrée introuvable : id=999
+2026-11-03 11:26:07,972 | ERROR    | bujo.models | Création refusée : nom d'entrée vide
