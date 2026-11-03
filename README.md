@@ -77,9 +77,10 @@ demo.py      scénario de démonstration
 
 ## Équipe
 
-À COMPLÉTER : prénoms et noms des deux membres.
+Issam Dougarem
+
+Ayoub Benmoualli
 
 ## Sources
 
-À COMPLÉTER : les pages et vidéos consultées sur la méthode Bullet Journal,
-et ce que vous en avez retenu, avec vos propres mots.
+lien du prof
