@@ -1,0 +1,3 @@
+2026-11-03 11:26:07,972 | ERROR    | bujo.models | Transition interdite pour la tâche 1 : terminee -> terminee
+2026-11-03 11:26:07,972 | ERROR    | bujo.journal | Entrée introuvable : id=999
+2026-11-03 11:26:07,972 | ERROR    | bujo.models | Création refusée : nom d'entrée vide
