@@ -1,9 +1,12 @@
 """Journal : gestion des entrées (niveau 1)."""
 
+import logging
 from datetime import date, time
 
 from bujo.exceptions import EntryNotFoundError
 from bujo.models import Entry, Event, Note, Task, TaskState
+
+logger = logging.getLogger(__name__)
 
 
 class Journal:
@@ -40,6 +43,7 @@ class Journal:
     def get_entry(self, entry_id: int) -> Entry:
         """Retourne l'entrée ; lève EntryNotFoundError si elle n'existe pas."""
         if entry_id not in self._entries:
+            logger.error("Entrée introuvable : id=%d", entry_id)
             raise EntryNotFoundError(
                 f"Aucune entrée avec l'identifiant {entry_id}"
             )
@@ -57,6 +61,7 @@ class Journal:
         """Supprime l'entrée ; lève EntryNotFoundError si elle n'existe pas."""
         self.get_entry(entry_id)
         del self._entries[entry_id]
+        logger.info("Entrée supprimée : id=%d", entry_id)
 
     def pending_tasks(self) -> list[Task]:
         """Retourne les tâches à faire, dans l'ordre de création."""
@@ -64,17 +69,21 @@ class Journal:
         for entry in self._entries.values():
             if isinstance(entry, Task) and entry.state == TaskState.TODO:
                 pending.append(entry)
+        logger.debug("%d tâche(s) à faire", len(pending))
         return pending
 
     def _register(self, entry: Entry) -> None:
         """Range l'entrée et prépare l'identifiant suivant."""
         self._entries[entry.id] = entry
         self._next_id += 1
+        logger.info("Entrée ajoutée : id=%d, type=%s, nom=%s",
+                    entry.id, type(entry).__name__, entry.name)
 
     def _get_task(self, entry_id: int) -> Task:
         """Retourne la tâche ; lève EntryNotFoundError si ce n'en est pas."""
         entry = self.get_entry(entry_id)
         if not isinstance(entry, Task):
+            logger.error("L'entrée %d n'est pas une tâche", entry_id)
             raise EntryNotFoundError(
                 f"L'entrée {entry_id} n'est pas une tâche"
             )

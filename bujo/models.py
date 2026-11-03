@@ -1,5 +1,6 @@
 """Modèles : états des tâches et entrées du journal."""
 
+import logging
 from abc import ABC, abstractmethod
 from datetime import date, datetime, time
 from enum import Enum
@@ -9,6 +10,8 @@ from bujo.exceptions import (
     InvalidDateError,
     InvalidTransitionError,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class TaskState(Enum):
@@ -38,6 +41,7 @@ class Entry(ABC):
                  log_date: date | None = None) -> None:
         """Crée une entrée ; lève EmptyNameError si le nom est vide."""
         if name.strip() == "":
+            logger.error("Création refusée : nom d'entrée vide")
             raise EmptyNameError("Le nom d'une entrée ne peut pas être vide")
         self.id = entry_id
         self.name = name.strip()
@@ -85,10 +89,14 @@ class Task(Entry):
     def _change_state(self, new_state: TaskState) -> None:
         """Change l'état ; lève InvalidTransitionError si c'est interdit."""
         if self._state != TaskState.TODO:
+            logger.error("Transition interdite pour la tâche %d : %s -> %s",
+                         self.id, self._state.value, new_state.value)
             raise InvalidTransitionError(
                 f"Impossible de passer de {self._state.value} "
                 f"à {new_state.value}"
             )
+        logger.info("Tâche %d : %s -> %s",
+                    self.id, self._state.value, new_state.value)
         self._state = new_state
 
 
@@ -101,6 +109,8 @@ class Event(Entry):
         """Crée un événement ; lève InvalidDateError si la date est fausse."""
         super().__init__(entry_id, name, description, log_date)
         if not isinstance(event_date, date):
+            logger.error("Création refusée : date d'événement invalide (%r)",
+                         event_date)
             raise InvalidDateError(
                 "La date de l'événement doit être de type date"
             )
