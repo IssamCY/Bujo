@@ -19,3 +19,11 @@ class InvalidDateError(BujoError):
 
 class InvalidTransitionError(BujoError):
     """Changement d'état interdit pour une tâche."""
+
+
+class LogNotFoundError(BujoError):
+    """Aucun log (Daily Log ou Monthly Log) ne correspond à la date."""
+
+
+class InvalidSignifierError(BujoError):
+    """Le signifiant fourni n'existe pas (priorité ou idée seulement)."""
