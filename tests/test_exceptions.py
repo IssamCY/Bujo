@@ -7,7 +7,9 @@ from bujo.exceptions import (
     EmptyNameError,
     EntryNotFoundError,
     InvalidDateError,
+    InvalidSignifierError,
     InvalidTransitionError,
+    LogNotFoundError,
 )
 
 TOUTES_LES_EXCEPTIONS = [
@@ -15,6 +17,8 @@ TOUTES_LES_EXCEPTIONS = [
     EmptyNameError,
     InvalidDateError,
     InvalidTransitionError,
+    LogNotFoundError,
+    InvalidSignifierError,
 ]
 
 
